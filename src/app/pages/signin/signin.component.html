@@ -1,0 +1,42 @@
+<!--Here we create our first column for our sign in page. -->
+<div fxLayout="column">
+
+  <!--Here we create the div for our error message. -->
+  <div fxFlex *ngIf="error">
+    {{ error }}
+  </div>
+
+  <!--Here we create our mat card. -->
+  <mat-card fxFlex>
+
+    <!--This is the title for our mat card. -->
+    <mat-card-title>
+      Employee Sign-in Page
+    </mat-card-title>
+
+    <!--This is the subtitle for the mat card. -->
+    <mat-card-subtitle>
+      You must enter a valid employee Id to continue.
+    </mat-card-subtitle>
+
+    <!--This creates the start of our form. -->
+    <form [formGroup]="form" (ngSubmit)="login(); form.reset();">
+
+      <!--The mat card content contains our form input and button. -->
+      <mat-card-content>
+
+        <!--This is the mat form-field which contains the mat input for the employee id. -->
+        <mat-form-field>
+          <input matInput [formControl]="form.controls['empId']" placeholder="Employee ID" />
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <!--This is the mat card actions which contains our submit button for the user to sign in. Which is disabled until the form field is inputted. -->
+      <mat-card-actions>
+        <button type="submit" fxFlex mat-raised-button color="primary" [disabled]="!form.valid">Sign-in</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+</div>
