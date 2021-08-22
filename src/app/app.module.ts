@@ -1,3 +1,12 @@
+/**
+ * Title: qpp.module.ts
+ * Author: Richard Krasso
+ * Modified By: James Pinson
+ * Date: 21 August 2021
+ * Description: This is the app module ts file.
+ */
+
+//This has all the imports needed for our application.
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './pages/signin/signin.component';
+import { MatCardModule } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -23,6 +35,8 @@ import { SigninComponent } from './pages/signin/signin.component';
     AuthLayoutComponent,
     SigninComponent
   ],
+
+  //Here we add all of the imports we are using.
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,8 +48,13 @@ import { SigninComponent } from './pages/signin/signin.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+//This is where we export the AppModule for the rest of the application.
 export class AppModule { }
