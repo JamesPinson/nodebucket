@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
 /**
  * Title: signin.component.ts
  * Author: Richard Krasso
@@ -15,20 +12,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
->>>>>>> dev
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-<<<<<<< HEAD
-export class SigninComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-=======
 
 //Here we export our Signin Component.
 export class SigninComponent implements OnInit {
@@ -70,7 +59,6 @@ export class SigninComponent implements OnInit {
         this.error = 'The Employee ID you entered is not valid, please try again.';
       }
     })
->>>>>>> dev
   }
 
 }
