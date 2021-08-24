@@ -21,11 +21,11 @@ router.get('/:empId', async (req, res) => {
       //This creates our find EmpById function.
       Employee.findOne({'empId': req.params.empId}, function(err, employee) {
 
-        //If the employee is not found then we return the error message.
+        //If there is a mongodb error then it displays the error message.
           if (err)
           {
             console.log(err);
-            res.status(500).send({
+            res.status(501).send({
               'message': 'MongoDB server error: ' + err.message
             })
           }
@@ -38,7 +38,83 @@ router.get('/:empId', async (req, res) => {
       })
 
   }
-  //If an error occurs we send this message.
+  //If a server error occurs we send this message.
+  catch (e)
+  {
+    console.log(e);
+    res.status(500).send({
+      'message': 'Internal server error: ' + e.message
+    })
+  }
+})
+
+//Find all task api
+
+router.get('/:empId/task', async(req, res) => {
+  try
+  {
+    Employee.findOne({'empId': req.params.empId}, 'empId todo done', function(err, employee) {
+      if (err)
+      {
+        console.log(err);
+        res.status(501).send({
+          'message': 'MongoDB exception ' + err.message
+        })
+      }
+      else
+      {
+        console.log(employee);
+        res.json(employee);
+      }
+    })
+  }
+  catch(e)
+  {
+    console.log(e);
+    res.status(500).send({
+      'message': 'Internal server error: ' + e.message
+    })
+  }
+})
+
+//Create Task
+router.post('/:empId/tasks', async(req, res) => {
+  try
+  {
+    Employee.findOne({'empId': reg.params.empId}, function(err, employee) {
+      if (err)
+      {
+        console.log(err);
+        res.status(501).send({
+          'message': 'MongoDB Exception: ' + err.message
+        })
+      }
+      else
+      {
+        console.log(employee);
+
+        const newTask = {
+          text: req.body.test
+        };
+
+        employee.todo.push(newTask);
+        employee.save(function(err, updatedEmployee) {
+          if (err)
+          {
+            console.log(err);
+            res.status(501).send({
+              'message': 'MongoDB Exception: ' + err.message
+            })
+          }
+          else
+          {
+            console.log(updatedEmployee);
+            res.json(updatedEmployee);
+          }
+        })
+      }
+    })
+  }
   catch (e)
   {
     console.log(e);
