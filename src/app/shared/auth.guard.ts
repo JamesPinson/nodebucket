@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
     //If the session user authenticated then we return true.
     if (sessionUser)
     {
-      return true; //code comments
+      return true;
     }
 
     //If it is not then we navigate back to the sign in page.

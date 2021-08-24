@@ -1,6 +1,12 @@
 /**
- * Require statements
+ * Title: app.js
+ * Author: Richard Krasso
+ * Modified By: James Pinson
+ * Date: 21 August 2021
+ * Description: This is the app.js file.
  */
+
+// Here we include our require statements for our server.
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
@@ -8,6 +14,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const EmployeeAPI = require('./routes/employee-api');
+
 /**
  * App configurations
  */
@@ -23,7 +30,7 @@ app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')));
  */
 const port = process.env.PORT || 3000; // server port
 
-// TODO: This line will need to be replaced with your actual database connection string
+//This line will need to be replaced with your actual database connection string
 const conn = 'mongodb+srv://nodebucket_user:admin@buwebdev-cluster-1.iavdd.mongodb.net/nodebucket?retryWrites=true&w=majority';
 
 /**
