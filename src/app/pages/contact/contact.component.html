@@ -1,1 +1,75 @@
-<p>contact works!</p>
+<br /><br />
+<!--This creates our first div which consist of one column. -->
+<div fxLayout="column" class="main-welcome">
+
+
+  <div fxFlex>
+    <!--This is the main heading for the contact page. -->
+    <h1 class="title">
+      Contact Information for Nodebucket <br />
+      <span class="subtitle">
+        Here you will find the all the contact information for the team behind Nodebucket.
+      </span>
+    </h1>
+  </div>
+</div>
+
+<br /><br /><br /><br /><br /><br />
+<!--This creates the div in a row format to hold our two contact cards side by side. -->
+<div fxLayout="row wrap">
+  <div fxFlex>
+
+
+    <!--This creates the card for the address. -->
+    <mat-card class="mat-elevation-z0 nav-card">
+      <!--This is the title for our address card. -->
+      <mat-card-title class="card-title-icon">
+        <mat-icon color="primary">navigation</mat-icon>   Address
+      </mat-card-title>
+
+      <br />
+
+      <!--Here we create a card that contains the address information. -->
+      <mat-card-content class="align-center">
+        <p>
+          4242 Richards Ave.
+        </p>
+        <p>
+          Bellevue, NE 68005
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex>
+    <!--This creates the card for the phone information. -->
+    <mat-card class="mat-elevation-z0 phone-card">
+      <!--This is the title for our phone information. -->
+      <mat-card-title class="card-title-icon">
+        <mat-icon color="primary">phone</mat-icon>   Phone
+      </mat-card-title>
+
+      <br />
+
+      <!--Here we include the contact information. -->
+      <mat-card-content class="align-center">
+        <p>
+          Direct: 111-222-3333
+        </p>
+        <p>
+          Fax: 111-222-3333
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<br /><br /><br /><br /><br /><br />
+<!--Here is a final message to the users with the email information. If it was a valid email we would make it a link to open up a new message to send to that email.  -->
+<div fxLayout="column">
+  <div fxFlex>
+  <p class="email">
+    For any additional inquires feel free to email us at nodebucket@mail.com.
+  </p>
+  </div>
+</div>

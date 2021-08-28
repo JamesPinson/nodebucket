@@ -48,14 +48,15 @@ router.get('/:empId', async (req, res) => {
   }
 })
 
-//Find all task api
-
-router.get('/:empId/task', async(req, res) => {
+//This is the find all task API.
+router.get('/:empId/tasks', async(req, res) => {
   try
   {
+    //This is the call to find the employee and show the id, todo array, and done array.
     Employee.findOne({'empId': req.params.empId}, 'empId todo done', function(err, employee) {
       if (err)
       {
+        //This is the error logging.
         console.log(err);
         res.status(501).send({
           'message': 'MongoDB exception ' + err.message
@@ -63,6 +64,7 @@ router.get('/:empId/task', async(req, res) => {
       }
       else
       {
+        //If no errors then it will return the employee record with the designated fields.
         console.log(employee);
         res.json(employee);
       }
@@ -70,6 +72,7 @@ router.get('/:empId/task', async(req, res) => {
   }
   catch(e)
   {
+    //This is the error logging for a server error.
     console.log(e);
     res.status(500).send({
       'message': 'Internal server error: ' + e.message
@@ -77,13 +80,15 @@ router.get('/:empId/task', async(req, res) => {
   }
 })
 
-//Create Task
+//This is the create task API.
 router.post('/:empId/tasks', async(req, res) => {
   try
   {
-    Employee.findOne({'empId': reg.params.empId}, function(err, employee) {
+    //This finds the employee by the emp id.
+    Employee.findOne({'empId': req.params.empId}, function(err, employee) {
       if (err)
       {
+        //This is the error handling for database errors.
         console.log(err);
         res.status(501).send({
           'message': 'MongoDB Exception: ' + err.message
@@ -91,16 +96,22 @@ router.post('/:empId/tasks', async(req, res) => {
       }
       else
       {
+        //Once we retrieve the employee we then can add a new task.
         console.log(employee);
 
+        //This creates our new task variable.
         const newTask = {
-          text: req.body.test
+          text: req.body.text
         };
 
+        //This pushes the new task to our employee record.
         employee.todo.push(newTask);
+
+        //This saves the new task and creates and updated employee record.
         employee.save(function(err, updatedEmployee) {
           if (err)
           {
+            //This is error handling for any database errors.
             console.log(err);
             res.status(501).send({
               'message': 'MongoDB Exception: ' + err.message
@@ -108,6 +119,7 @@ router.post('/:empId/tasks', async(req, res) => {
           }
           else
           {
+            //This returns our updated employee record which includes the new task.
             console.log(updatedEmployee);
             res.json(updatedEmployee);
           }
@@ -117,6 +129,7 @@ router.post('/:empId/tasks', async(req, res) => {
   }
   catch (e)
   {
+    //This is error handling for our server.
     console.log(e);
     res.status(500).send({
       'message': 'Internal server error: ' + e.message
