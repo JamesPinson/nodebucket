@@ -1,6 +1,7 @@
 <div fxLayout="column" class="main-welcome">
 
   <div fxFlex>
+    <!--This is the main heading for our home page. -->
     <h1 class="title">
       Welcome to WEB 450's - nodebucket Project <br />
       <span class="subtitle">
@@ -8,17 +9,20 @@
       </span>
     </h1>
   </div>
-
+  <br /><br /><br /><br />
   <div fxFlex>
+    <!--Here we create the Create Take Button which will open the create task dialog on click. -->
     <div class="task-container" fxLayout="column">
       <button mat-flat-button color="primary" (click)="openCreateTaskDialog()">Create Task</button>
     </div>
   </div>
 
   <div fxFlex>
+    <!--We use the row layout so that our todo and done list are beside one another. -->
     <div fxLayout="row" fxLayoutGap="15px" class="task-container">
 
       <div fxFlex>
+        <!--Here we create our ToDo card. -->
         <mat-card card class="mat-elevation-z0">
           <mat-card-title>
             ToDo
@@ -30,6 +34,7 @@
 
                 <mat-card class="mat-elevation-z0 task-card">
                   <mat-card-content>
+                    <!--This is where we display our new task for the Todo list. -->
                     <div fxLayout="row">
                       <div fxFlex>
                         {{ item.text }}
@@ -44,6 +49,7 @@
       </div>
 
       <div fxFlex>
+        <!--This is the card for our Done list. -->
         <mat-card card class="mat-elevation-z0">
           <mat-card-title>
             Done
@@ -54,6 +60,7 @@
               <div *ngFor="let item of done">
 
                 <mat-card class="mat-elevation-z0 task-card">
+                  <!--This is where we display the task for our Done list. -->
                   <mat-card-content>
                     <div fxLayout="row">
                       <div fxFlex>
