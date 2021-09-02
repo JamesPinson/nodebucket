@@ -2,7 +2,7 @@
  * Title: home.component.ts
  * Author: Richard Krasso
  * Modified By: James Pinson
- * Date: 28 August 2021
+ * Date: 1 September 2021
  * Description: This is the home component ts file.
  */
 
@@ -14,6 +14,7 @@ import { Item } from '../../shared/models/item.interface'
 import { TaskService } from '../../shared/services/task.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../../shared/create-task-dialog/create-task-dialog.component';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-home',
@@ -92,4 +93,68 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  //This is our drop function which triggers the drag/drop event.
+  drop(event: CdkDragDrop<any[]>) {
+
+    //If the item we are moving is in the same container this we use the moveItemInArray function to re-order the item.
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      console.log('Reordered the existing list of task items.');
+
+      //We use our updateTaskList function to update the new task list and save it.
+      this.updateTaskList(this.empId, this.todo, this.done);
+
+    } else
+    {
+      //We use the transferArrayItem function if we are moving the item to another container.
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+      console.log('Moved task item into the other list.')
+
+      //We use the updateTaskList function to update the todo and done list and save it.
+      this.updateTaskList(this.empId, this.todo, this.done);
+    }
+  }
+
+  //This is our delete task function.
+  deleteTask(taskId: string): void {
+
+    //If called then we a message is presented to the user asking them if they are sure they want to delete this task.
+    if (confirm('Are you sure you want to delete this task?')) {
+
+      //This is to ensure that we have the taskId for the task we want to delete.
+      if (taskId) {
+        console.log(`Task Item: ${taskId} was deleted.`);
+
+        //This deletes the task from the employee collection.
+        this.taskService.deleteTask(this.empId, taskId).subscribe(res => {
+          this.employee = res.data;
+        }, err => {
+          //If there is an error we output it to the console.
+          console.log(err);
+        }, () => {
+          //Once complete we return the new updated todo and done list.
+          this.todo = this.employee.todo;
+          this.done = this.employee.done;
+        })
+      }
+    }
+  }
+
+  //This is our private updateTaskList function which we use in our drop event function.
+  private updateTaskList(empId: number, todo: Item[], done: Item[]): void {
+
+    //This calls the updateTask API to update the task list of our employee collections when we use the drag and drop feature.
+    this.taskService.updateTask(this.empId, this.todo, this.done).subscribe(res => {
+      this.employee = res.data;
+    }, err => {
+      //If there is an error we output it to the console.
+      console.log(err);
+    }, () => {
+      //We return the updates todo and done task list.
+      this.todo = this.employee.todo;
+      this.done = this.employee.done
+    })
+  }
 }

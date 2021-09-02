@@ -2,7 +2,7 @@
  * Title: qpp.module.ts
  * Author: Richard Krasso
  * Modified By: James Pinson
- * Date: 28 August 2021
+ * Date: 1 September 2021
  * Description: This is the app module ts file.
  */
 
@@ -32,6 +32,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-task-dialog.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { AboutComponent } from './pages/about/about.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { ContactComponent } from './pages/contact/contact.component';
     AuthLayoutComponent,
     SigninComponent,
     CreateTaskDialogComponent,
-    ContactComponent
+    ContactComponent,
+    AboutComponent,
+    NotFoundComponent
   ],
 
   //Here we add all of the imports we are using.
@@ -61,7 +66,8 @@ import { ContactComponent } from './pages/contact/contact.component';
     MatFormFieldModule,
     MatMenuModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
