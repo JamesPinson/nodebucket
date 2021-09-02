@@ -2,7 +2,7 @@
  * Title: task.service.ts
  * Author: Richard Krasso
  * Modified By: James Pinson
- * Date: 28 August 2021
+ * Date: 1 September 2021
  * Description: This is the task service file which we create for reusability.
  */
 
@@ -10,6 +10,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Item } from '../models/item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,18 @@ export class TaskService {
     return this.http.post('/api/employees/' + empId + '/tasks', {
       text: task
     })
+  }
+
+  //This is the updateTask functions which calls our updateTask API.
+  updateTask(empId: number, todo: Item[], done: Item[]): Observable<any> {
+    return this.http.put('/api/employees/' + empId + '/tasks', {
+      todo,
+      done
+    })
+  }
+
+  //This is the deleteTask function which calls our deleteTask API.
+  deleteTask(empId: number, taskId: string): Observable<any> {
+    return this.http.delete('/api/employees/' + empId + '/tasks/' + taskId);
   }
 }

@@ -50,6 +50,8 @@ export class SigninComponent implements OnInit {
       //If the empId is valid then it signs the user in and redirects them to the homepage.
       if (res)
       {
+        sessionStorage.setItem('name', `${res['firstName']} ${res['lastName']}`);
+
         this.cookieService.set('session_user', empId, 1);
         this.router.navigate(['/']);
       }

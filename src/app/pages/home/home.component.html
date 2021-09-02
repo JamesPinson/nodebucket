@@ -3,9 +3,9 @@
   <div fxFlex>
     <!--This is the main heading for our home page. -->
     <h1 class="title">
-      Welcome to WEB 450's - nodebucket Project <br />
+      Welcome to Nodebucket <br />
       <span class="subtitle">
-        Pay close attention to the requirements, double and triple check the files for code attribution, and do not wait unitl the last minute to begin working on each item.
+        A tool designed to help you organize all of your task!
       </span>
     </h1>
   </div>
@@ -29,8 +29,19 @@
           </mat-card-title>
 
           <mat-card-content>
-            <div class="task-column">
-              <div *ngFor="let item of todo">
+            <!--Here we add the required information to allow us to drag and drop for this list. -->
+            <div
+            fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column"
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]"
+            (cdkDropListDropped)="drop($event)"
+            >
+              <!--We implement the drag and drop feature for this list of items. -->
+              <div *ngFor="let item of todo" cdkDrag>
 
                 <mat-card class="mat-elevation-z0 task-card">
                   <mat-card-content>
@@ -38,6 +49,12 @@
                     <div fxLayout="row">
                       <div fxFlex>
                         {{ item.text }}
+                      </div>
+                      <div fxFlex fxLayoutAlign="end">
+                        <!--Here we add the button to delete task using the mat-icon. We pass through out deleteTask function on click. -->
+                        <button mat-icon-button (click)="deleteTask(item._id)">
+                          <mat-icon color="black">remove_circle</mat-icon>
+                        </button>
                       </div>
                     </div>
                   </mat-card-content>
@@ -56,8 +73,19 @@
           </mat-card-title>
 
           <mat-card-content>
-            <div class="task-column">
-              <div *ngFor="let item of done">
+            <!--Here we add in the required information to implement drag and drop. -->
+            <div
+            fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column"
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]"
+            (cdkDropListDropped)="drop($event)"
+            >
+              <!--Here we implement drag and drop for this list. -->
+              <div *ngFor="let item of done" cdkDrag>
 
                 <mat-card class="mat-elevation-z0 task-card">
                   <!--This is where we display the task for our Done list. -->
@@ -65,6 +93,13 @@
                     <div fxLayout="row">
                       <div fxFlex>
                         {{ item.text }}
+                      </div>
+
+                      <!--We add the delete button using the mat-icon. We pass the deleteTask function through on click. -->
+                      <div fxFlex fxLayoutAlign="end">
+                        <button mat-icon-button (click)="deleteTask(item._id)">
+                          <mat-icon color="black">remove_circle</mat-icon>
+                        </button>
                       </div>
                     </div>
                   </mat-card-content>
